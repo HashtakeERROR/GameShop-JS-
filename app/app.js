@@ -59,7 +59,7 @@ function createRef(){
             div = document.createElement('div');
             order += "|" + (refs[i][j].show ? refs[i][j].cod : "---") + "|";
             div.textContent = `${(refs[i][j].show ? refs[i][j].cod : "---")}`;
-            div.className = "box border-rad bg-blue";
+            div.className = "box border-rad bg-green";
             obDiv.appendChild(div);
         }
         console.log(order);
