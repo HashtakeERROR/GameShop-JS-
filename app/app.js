@@ -3,7 +3,7 @@ let game1=  {name: "GOD OF WAR" , buy: 55+" $" , ref: "1.1.REF" };
 let game2=  {name: "GTA V" , buy: 20+" $" , ref: "1.2.REF"};
 let game3=  {name: "RETHIDENT VII" , buy: 10+" $" , ref: "1.3.REF"};
 let game4=  {name: "RUST" , buy: 30+" $" , ref: "1.4.REF"};
-let game5=  {name: "UNCARTELD 5" , buy: 42+" $" , ref: "2.1.REF"};
+let game5=  {name: "UNCARTELD 5" , buy: 42+" $" , ref: "1.5.REF"};
 
 let games = [game1,game2,game3,game4,game5,];
 
