@@ -14,48 +14,48 @@ function createRefs(rows, cols) {
     for (let i = 1; i <= rows; i++) {
         const row = [];
         for (let j = 1; j <= cols; j++) {
-            row.push({ cod: `${i}.${j}.REF`, show: false });
+            row.push({ cod: `${i}.${j}.REF`, show: false, noneCod: "---" });
         }
         refs.push(row);
     }
     return refs;
 }
 
-// Создаем массив refs
 const refs = createRefs(5, 5);
 
-// Пример: Выводим массив refs в консоль
 console.log(refs);
 
 // ! KUTUPHANE 2-HISSE
 
 const body = document.querySelector("body");
 
-// Создаем input для ввода названия игры
+const inputDiv = document.createElement("div");
+body.appendChild(inputDiv);
+
 const input = document.createElement("input");
 input.type = "text";
 input.placeholder = "Введите название игры";
-body.appendChild(input);
+inputDiv.appendChild(input);
 
-// Создаем кнопку для подтверждения ввода
 const button = document.createElement("button");
 button.textContent = "Найти";
-body.appendChild(button);
+inputDiv.appendChild(button);
 
-// Создаем div для вывода результатов
 const obDiv = document.createElement("div");
 obDiv.className = "obDiv";
 body.appendChild(obDiv);
 
+let findIdex = 0;
+
 function createRef() {
-  obDiv.innerHTML = ""; // Очищаем div перед добавлением новых элементов
+  obDiv.innerHTML = ""; 
   for (let i = 0; i < refs.length; i++) {
     let order = "";
     let div;
     for (let j = 0; j < 5; j++) {
       div = document.createElement("div");
-      order += "|" + (refs[i][j].show ? refs[i][j].cod : "---") + "|";
-      div.textContent = `${refs[i][j].show ? refs[i][j].cod : "---"}`;
+      order += "|" + (refs[i][j].show ? refs[i][j].cod : refs[i][j].noneCod) + "|";
+      div.textContent = `${refs[i][j].show ? refs[i][j].cod : refs[i][j].noneCod}`;
       div.className = "box border-rad bg-green";
       obDiv.appendChild(div);
     }
@@ -82,24 +82,39 @@ function showRef(refCod) {
         refs[i][j].show = true;
         break;
       }
+      else if(refs[i][j].noneCod == refCod){
+        refs[i][j].show = false;
+        break;
+      }
     }
   }
 }
 
-// Обработка клика по кнопке
 button.addEventListener("click", () => {
-  const gamesName = input.value.trim(); // Получаем значение из input
-  const refCod = codFind(gamesName);
 
-  if(gamesName === ""){
-    console.log("None");
-  }else{
+    const gamesName = input.value.trim();
+
+    refs.forEach(row => {
+        row.forEach(ref => ref.show = false);
+    });
+    createRef();
+
+    if (gamesName === "") {
+        refs.forEach(row => {
+            row.forEach(ref => ref.show = false);
+        });
+        createRef(); 
+        return;
+    }
+
+    const refCod = codFind(gamesName);
+
     if (refCod != null) {
         showRef(refCod);
         createRef();
-      } else {
+    } else {
         console.log("Данная игра не добавлена: " + gamesName);
-      }
-      input.value = "";
-  }
+    }
+
 });
+
